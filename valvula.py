@@ -1,88 +1,87 @@
 import socket
 import struct
+import threading
+import time
 import horta_pb2
 
-# Configurações
+# ==========================================
+# CONFIGURAÇÕES
+# ==========================================
 GRUPO_MULTICAST = '224.1.1.1'
 PORTA_MULTICAST = 5000
-MINHA_PORTA_TCP = 5006  # Porta separada para receber os comandos
+MINHA_PORTA_TCP = 5006
 
-def executar_valvula():
-    # --- FASE 1: DESCOBERTA (Ouvindo o Multicast) ---
-    sock_multicast = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
-    sock_multicast.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    sock_multicast.bind(('', PORTA_MULTICAST))
+estado_valvula = "desligado"
+
+def escutar_multicast():
+    """Thread 1: Mantém a Válvula viva no Gateway respondendo aos beacons."""
+    global estado_valvula
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    sock.bind(('', PORTA_MULTICAST))
     
     mreq = struct.pack("4sl", socket.inet_aton(GRUPO_MULTICAST), socket.INADDR_ANY)
-    sock_multicast.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
+    sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
 
-    print(f"Válvula de Irrigação escutando multicast na porta {PORTA_MULTICAST}...")
-    
+    print(f"[Descoberta] Válvula ouvindo multicast em {PORTA_MULTICAST}...")
+
     while True:
-        dados_recebidos, endereco_gateway = sock_multicast.recvfrom(1024)
+        dados_recebidos, endereco_gateway = sock.recvfrom(1024)
         if dados_recebidos == b"DISCOVER_HORTA":
-            print(f"\nRequisição recebida. Respondendo para o Gateway...")
-            
             resposta = horta_pb2.DiscoveryInfo()
             resposta.tipo = "valvula_irrigacao"
-            resposta.ip = "127.0.0.1" 
-            resposta.porta = MINHA_PORTA_TCP 
-            resposta.estado_inicial = "desligado"
+            resposta.ip = "127.0.0.1"
+            resposta.porta = MINHA_PORTA_TCP
+            resposta.estado_inicial = estado_valvula # Reporta o estado real atual
 
-            sock_multicast.sendto(resposta.SerializeToString(), endereco_gateway)
-            sock_multicast.close()
-            break # Fim da descoberta
+            sock.sendto(resposta.SerializeToString(), endereco_gateway)
 
-    # --- FASE 2: SERVIDOR TCP PARA RECEBER COMANDOS ---
-    estado_valvula = "desligado"
-    
-    # Criando socket TCP (SOCK_STREAM)
+def servidor_tcp():
+    """Thread 2: Escuta e executa comandos do Gateway Central."""
+    global estado_valvula
     sock_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock_tcp.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock_tcp.bind(('', MINHA_PORTA_TCP))
-    sock_tcp.listen(1) # Fica ouvindo (1 conexão concorrente por vez)
+    sock_tcp.listen(1)
     
-    print(f"\nVálvula pronta e aguardando comandos TCP na porta {MINHA_PORTA_TCP}...")
-    
+    print(f"[Servidor TCP] Válvula pronta para comandos na porta {MINHA_PORTA_TCP}...")
+
     while True:
-        # Fica travado aqui até o Gateway conectar
-        conexao, endereco_cliente = sock_tcp.accept()
-        
+        conexao, endereco = sock_tcp.accept()
         try:
-            # 1. Recebe os bytes do comando TCP
-            dados_bytes = conexao.recv(1024)
-            if not dados_bytes:
-                continue
-                
+            dados = conexao.recv(1024)
+            if not dados: continue
+            
             comando = horta_pb2.ComandoRequisicao()
-            comando.ParseFromString(dados_bytes)
+            comando.ParseFromString(dados)
+            print(f"\n[Comando Recebido] Ação: {comando.acao}")
             
-            print(f"\n[TCP] Comando recebido: Ação='{comando.acao}' | Alvo='{comando.id_alvo}'")
-            
-            # 2. Executa a lógica de controle e prepara a resposta
             resposta = horta_pb2.ComandoResposta()
             
             if comando.acao == "ativar_bomba":
                 estado_valvula = "ligado"
                 resposta.sucesso = True
-                resposta.mensagem = "Bomba de irrigação ATIVADA com sucesso."
-                
+                resposta.mensagem = "Bomba de irrigação ativada!"
             elif comando.acao == "desativar_bomba":
                 estado_valvula = "desligado"
                 resposta.sucesso = True
-                resposta.mensagem = "Bomba de irrigação DESATIVADA com sucesso."
-                
+                resposta.mensagem = "Bomba de irrigação desativada!"
             else:
                 resposta.sucesso = False
-                resposta.mensagem = f"Comando '{comando.acao}' não reconhecido."
-            
-            print(f"Estado atual da Válvula: {estado_valvula.upper()}")
-            
-            # 3. Envia a resposta de volta pelo mesmo túnel TCP
+                resposta.mensagem = f"Comando '{comando.acao}' inválido."
+                
             conexao.sendall(resposta.SerializeToString())
+            print(f"-> Estado alterado para: {estado_valvula.upper()}")
             
         finally:
-            # Encerra a conexão daquele comando específico e volta a escutar
             conexao.close()
 
 if __name__ == "__main__":
-    executar_valvula()
+    t_multicast = threading.Thread(target=escutar_multicast, daemon=True)
+    t_tcp = threading.Thread(target=servidor_tcp, daemon=True)
+    
+    t_multicast.start()
+    t_tcp.start()
+    
+    while True:
+        time.sleep(1)
