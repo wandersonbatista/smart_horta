@@ -1,7 +1,7 @@
 # smart_horta
 Traballho da disciplina de Sistemas Distribuídos
 
-#📖 Apresentação do Projeto
+# 📖 Apresentação do Projeto
 
 Este projeto implementa um sistema distribuído que simula o monitoramento e controle de uma Horta Inteligente. O sistema visa consolidar conceitos de comunicação entre processos utilizando sockets TCP e UDP , serialização de mensagens com Protocol Buffers e descoberta de dispositivos na rede utilizando multicast.  
 
@@ -19,7 +19,7 @@ Cliente Analítico: Um processo separado que se conecta ao Gateway via TCP. Ele 
 
 Toda a comunicação, independentemente do protocolo de transporte (TCP ou UDP), tem suas mensagens serializadas rigorosamente através do Protocol Buffers.  
 
-#⚙️ Requisitos do Sistema
+# ⚙️ Requisitos do Sistema
 
 Para configurar o ambiente, compilar os contratos de comunicação e executar os nós da rede, os seguintes requisitos são necessários:
 
@@ -35,7 +35,7 @@ Para configurar o ambiente, compilar os contratos de comunicação e executar os
 
 - Ambiente de Rede Local: O sistema operacional deve suportar binding de portas locais e roteamento multicast habilitado (funcionalidade padrão na maioria dos ambientes Linux e Windows locais).
 
-#🚀 Como Executar
+# 🚀 Como Executar 
 1. Configuração do Ambiente Virtual (venv)
 
 Na raiz do projeto, execute os comandos abaixo para criar e ativar o ambiente isolado, e em seguida instalar a biblioteca do Protocol Buffers:
