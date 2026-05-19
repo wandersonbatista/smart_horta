@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package horta_inteligente;
+
+// ---------------------------------------------------------
+// 1. Fase de Descoberta (Multicast UDP)
+// ---------------------------------------------------------
+message DiscoveryInfo {
+  string tipo = 1;          // Ex: "sensor_clima", "valvula_irrigacao"
+  string ip = 2;            // Endereço IP do dispositivo
+  int32 porta = 3;          // Porta em que o dispositivo está escutando
+  string estado_inicial = 4;// Ex: "ativo", "standby", "desligado"
+}
+
+// ---------------------------------------------------------
+// 2. Fluxo de Dados / Sensor Contínuo (UDP)
+// ---------------------------------------------------------
+message LeituraClima {
+  string id_sensor = 1;     // Identificador único do sensor (ex: "estufa_norte_1")
+  float temperatura = 2;    // Temperatura em graus Celsius
+  float umidade = 3;        // Umidade relativa em porcentagem (%)
+  int64 timestamp = 4;      // Carimbo de tempo (Unix epoch) para ordenação no Gateway
+}
+
+// ---------------------------------------------------------
+// 3. Controle e Configuração (TCP)
+// ---------------------------------------------------------
+message ComandoRequisicao {
+  string id_alvo = 1;       // Para quem o comando é destinado
+  string acao = 2;          // Ex: "ativar_bomba", "alterar_frequencia", "set_limiar_temp"
+  float valor_parametro = 3;// Valor opcional (ex: 5.0 para 5 segundos de frequência)
+}
+
+message ComandoResposta {
+  bool sucesso = 1;         // True se o comando foi aceito/executado
+  string mensagem = 2;      // Ex: "Bomba d'água ativada com sucesso"
+}
+
+// ---------------------------------------------------------
+// 4. Comunicação Cliente Analítico <-> Gateway (TCP)
+// ---------------------------------------------------------
+message RequisicaoCliente {
+  string operacao = 1;      // Ex: "listar_fontes", "consultar_media_temp", "enviar_comando"
+  string id_alvo = 2;       // Opcional: Para qual fonte o comando vai (usado na op 3)
+  string acao_comando = 3;  // Opcional: Qual comando executar (ex: "ativar_bomba")
+}
+
+message RespostaCliente {
+  bool sucesso = 1;
+  string payload_texto = 2; // O resultado da consulta ou log de execução formatado
+}
