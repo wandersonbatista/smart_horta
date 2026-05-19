@@ -25,9 +25,14 @@ Para configurar o ambiente, compilar os contratos de comunicação e executar os
 
 - Python 3.x: Linguagem escolhida para a implementação da lógica de rede, sockets e processos.
 
-    Protocol Buffers Compiler (protoc): O compilador oficial necessário para gerar as classes nativas a partir do nosso contrato de dados (.proto).
+- Protocol Buffers Compiler (protoc): O compilador oficial necessário para gerar as classes nativas a partir do nosso contrato de dados (.proto).
 
-        Debian/Ubuntu/Kali: sudo apt install protobuf-compiler
+        - Linux(Debian): 
+            sudo apt install protobuf-compiler
+        
+        - Windows: 
+        
+        - MacOS: 
 
 - Biblioteca Protobuf para Python: Pacote necessário para instanciar as mensagens no código.
 
@@ -35,10 +40,12 @@ Para configurar o ambiente, compilar os contratos de comunicação e executar os
 
 - Ambiente de Rede Local: O sistema operacional deve suportar binding de portas locais e roteamento multicast habilitado (funcionalidade padrão na maioria dos ambientes Linux e Windows locais).
 
+<br>
+
 # 🚀 Como Executar 
 1. Configuração do Ambiente Virtual (venv)
 
-Na raiz do projeto, execute os comandos abaixo para criar e ativar o ambiente isolado, e em seguida instalar a biblioteca do Protocol Buffers:
+    Na raiz do projeto, execute os comandos abaixo para criar e ativar o ambiente isolado, e em seguida instalar a biblioteca do Protocol Buffers:
 Bash
 
 1. Criar o ambiente virtual chamado 'venv'
@@ -47,19 +54,19 @@ python3 -m venv venv
 2. Ativar o ambiente virtual
 - No Linux/macOS:
 
-    source venv/bin/activate
+        source venv/bin/activate
 
 - No Windows (Prompt de Comando):
 
-    venv\Scripts\activate
+        venv\Scripts\activate
 
 - No Windows (PowerShell):
 
-    .\venv\Scripts\Activate.ps1
+        .\venv\Scripts\Activate.ps1
 
 3. Instalar a biblioteca do Protobuf no ambiente isolado
 
-    pip install protobuf
+        pip install protobuf
 
 
 2. Compilação do Contrato (Protobuf)
