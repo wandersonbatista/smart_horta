@@ -46,21 +46,27 @@ python3 -m venv venv
 
 2. Ativar o ambiente virtual
 - No Linux/macOS:
+
     source venv/bin/activate
+
 - No Windows (Prompt de Comando):
+
     venv\Scripts\activate
+
 - No Windows (PowerShell):
+
     .\venv\Scripts\Activate.ps1
 
 3. Instalar a biblioteca do Protobuf no ambiente isolado
+
     pip install protobuf
 
 
 2. Compilação do Contrato (Protobuf)
 
-Com o ambiente virtual ativado, compile o arquivo de definição de mensagens para gerar o suporte ao Python:
-Bash
+    Com o ambiente virtual ativado, compile o arquivo de definição de mensagens para gerar o suporte ao Python:
+    Bash
 
-    protoc -I=. --python_out=. horta.proto
+        protoc -I=. --python_out=. horta.proto
 
-Isso gerará o arquivo horta_pb2.py, responsável pela serialização dos dados.
+    Isso gerará o arquivo horta_pb2.py, responsável pela serialização dos dados.
