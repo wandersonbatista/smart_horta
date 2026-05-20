@@ -12,7 +12,7 @@ GRUPO_MULTICAST = '224.1.1.1'
 PORTA_MULTICAST = 5000
 PORTA_DADOS_GATEWAY = 5005
 
-gateway_ip = None # Será descoberto dinamicamente
+gateway_ip = None
 
 def escutar_multicast():
     """Thread 1: Ouve eternamente os beacons do Gateway e responde."""

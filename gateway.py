@@ -20,7 +20,7 @@ historico_temperaturas = []
 lock_historico = threading.Lock()
 
 # ==========================================
-# THREAD 1: BEACONING & DESCOBERTA (MULTICAST UDP)
+# THREAD 1: MULTICAST UDP
 # ==========================================
 def gerenciar_descoberta():
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
@@ -64,7 +64,7 @@ def gerenciar_descoberta():
             print(f"[Erro Descoberta] Falha ao processar resposta: {e}")
 
 # ==========================================
-# THREAD 2: TELEMETRIA CONTÍNUA (UDP)
+# THREAD 2: TELEMETRIA CONTÍNUA
 # ==========================================
 def receber_telemetria_udp():
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -118,7 +118,7 @@ def obter_lista_limpa():
     return dispositivos_vivos
 
 # ==========================================
-# THREAD PRINCIPAL: SERVIDOR TCP
+# SERVIDOR
 # ==========================================
 def executar_gateway():
     print("=" * 50)

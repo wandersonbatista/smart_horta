@@ -3,7 +3,7 @@ import sys
 import horta_pb2
 
 GATEWAY_IP = "127.0.0.1"
-GATEWAY_PORTA_CLIENTE = 5007  # Porta TCP exclusiva para o Cliente Analítico
+GATEWAY_PORTA_CLIENTE = 5007  # Porta TCP exclusiva para o Client
 
 def enviar_requisicao(requisicao):
     # Estabelece uma conexão TCP a cada comando disparado
