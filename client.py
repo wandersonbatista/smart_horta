@@ -34,13 +34,14 @@ def menu():
         print("2. Consultar média de temperatura (Agregada)")
         print("3. Ativar Válvula de Irrigação")
         print("4. Desativar Válvula de Irrigação")
+        print("5. Ligar Lâmpada UV (Java)")
+        print("6. Desligar Lâmpada UV (Java)")
         print("0. Sair")
         
         opcao = input("\nEscolha uma operação: ")
         
         requisicao = horta_pb2.RequisicaoCliente()
         
-        # Mapeia as opções para os comandos do Protocol Buffers
         if opcao == "1":
             requisicao.operacao = "listar_fontes"
         elif opcao == "2":
@@ -53,6 +54,14 @@ def menu():
             requisicao.operacao = "enviar_comando"
             requisicao.id_alvo = "valvula_01"
             requisicao.acao_comando = "desativar_bomba"
+        elif opcao == "5":
+            requisicao.operacao = "enviar_comando"
+            requisicao.id_alvo = "lampada_01"
+            requisicao.acao_comando = "ligar_luz"
+        elif opcao == "6":
+            requisicao.operacao = "enviar_comando"
+            requisicao.id_alvo = "lampada_01"
+            requisicao.acao_comando = "desligar_luz"
         elif opcao == "0":
             print("Encerrando cliente...")
             sys.exit(0)
@@ -70,6 +79,5 @@ def menu():
             print(resposta.payload_texto)
         else:
             print("\n❌ ERRO: Não foi possível conectar ao Gateway. Verifique se ele está no ar.")
-
 if __name__ == "__main__":
     menu()
