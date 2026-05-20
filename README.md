@@ -1,7 +1,6 @@
 <div style="text-align: justify;">
 
 # 🌾SmartHorta - Sistemas Distribuídos
-Traballho da disciplina de Sistemas Distribuídos
 
 Equipe:<br>
  - ISRAEL DA SILVA FERNANDES - 538891 <br>
