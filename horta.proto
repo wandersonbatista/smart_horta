@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package horta_inteligente;
+package smart_horta;
 
 // ---------------------------------------------------------
 // 1. Fase de Descoberta (Multicast UDP)

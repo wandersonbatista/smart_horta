@@ -13,23 +13,23 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bhorta.proto\x12\x11horta_inteligente\"P\n\rDiscoveryInfo\x12\x0c\n\x04tipo\x18\x01 \x01(\t\x12\n\n\x02ip\x18\x02 \x01(\t\x12\r\n\x05porta\x18\x03 \x01(\x05\x12\x16\n\x0e\x65stado_inicial\x18\x04 \x01(\t\"Z\n\x0cLeituraClima\x12\x11\n\tid_sensor\x18\x01 \x01(\t\x12\x13\n\x0btemperatura\x18\x02 \x01(\x02\x12\x0f\n\x07umidade\x18\x03 \x01(\x02\x12\x11\n\ttimestamp\x18\x04 \x01(\x03\"K\n\x11\x43omandoRequisicao\x12\x0f\n\x07id_alvo\x18\x01 \x01(\t\x12\x0c\n\x04\x61\x63\x61o\x18\x02 \x01(\t\x12\x17\n\x0fvalor_parametro\x18\x03 \x01(\x02\"4\n\x0f\x43omandoResposta\x12\x0f\n\x07sucesso\x18\x01 \x01(\x08\x12\x10\n\x08mensagem\x18\x02 \x01(\t\"L\n\x11RequisicaoCliente\x12\x10\n\x08operacao\x18\x01 \x01(\t\x12\x0f\n\x07id_alvo\x18\x02 \x01(\t\x12\x14\n\x0c\x61\x63\x61o_comando\x18\x03 \x01(\t\"9\n\x0fRespostaCliente\x12\x0f\n\x07sucesso\x18\x01 \x01(\x08\x12\x15\n\rpayload_texto\x18\x02 \x01(\tb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bhorta.proto\x12\x0bsmart_horta\"P\n\rDiscoveryInfo\x12\x0c\n\x04tipo\x18\x01 \x01(\t\x12\n\n\x02ip\x18\x02 \x01(\t\x12\r\n\x05porta\x18\x03 \x01(\x05\x12\x16\n\x0e\x65stado_inicial\x18\x04 \x01(\t\"Z\n\x0cLeituraClima\x12\x11\n\tid_sensor\x18\x01 \x01(\t\x12\x13\n\x0btemperatura\x18\x02 \x01(\x02\x12\x0f\n\x07umidade\x18\x03 \x01(\x02\x12\x11\n\ttimestamp\x18\x04 \x01(\x03\"K\n\x11\x43omandoRequisicao\x12\x0f\n\x07id_alvo\x18\x01 \x01(\t\x12\x0c\n\x04\x61\x63\x61o\x18\x02 \x01(\t\x12\x17\n\x0fvalor_parametro\x18\x03 \x01(\x02\"4\n\x0f\x43omandoResposta\x12\x0f\n\x07sucesso\x18\x01 \x01(\x08\x12\x10\n\x08mensagem\x18\x02 \x01(\t\"L\n\x11RequisicaoCliente\x12\x10\n\x08operacao\x18\x01 \x01(\t\x12\x0f\n\x07id_alvo\x18\x02 \x01(\t\x12\x14\n\x0c\x61\x63\x61o_comando\x18\x03 \x01(\t\"9\n\x0fRespostaCliente\x12\x0f\n\x07sucesso\x18\x01 \x01(\x08\x12\x15\n\rpayload_texto\x18\x02 \x01(\tb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'horta_pb2', globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _DISCOVERYINFO._serialized_start=34
-  _DISCOVERYINFO._serialized_end=114
-  _LEITURACLIMA._serialized_start=116
-  _LEITURACLIMA._serialized_end=206
-  _COMANDOREQUISICAO._serialized_start=208
-  _COMANDOREQUISICAO._serialized_end=283
-  _COMANDORESPOSTA._serialized_start=285
-  _COMANDORESPOSTA._serialized_end=337
-  _REQUISICAOCLIENTE._serialized_start=339
-  _REQUISICAOCLIENTE._serialized_end=415
-  _RESPOSTACLIENTE._serialized_start=417
-  _RESPOSTACLIENTE._serialized_end=474
+  _DISCOVERYINFO._serialized_start=28
+  _DISCOVERYINFO._serialized_end=108
+  _LEITURACLIMA._serialized_start=110
+  _LEITURACLIMA._serialized_end=200
+  _COMANDOREQUISICAO._serialized_start=202
+  _COMANDOREQUISICAO._serialized_end=277
+  _COMANDORESPOSTA._serialized_start=279
+  _COMANDORESPOSTA._serialized_end=331
+  _REQUISICAOCLIENTE._serialized_start=333
+  _REQUISICAOCLIENTE._serialized_end=409
+  _RESPOSTACLIENTE._serialized_start=411
+  _RESPOSTACLIENTE._serialized_end=468
 # @@protoc_insertion_point(module_scope)
