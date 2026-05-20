@@ -96,7 +96,7 @@ def receber_telemetria_udp():
                 if chave_sensor in fontes_ativas:
                     fontes_ativas[chave_sensor]["ultimo_visto"] = time.time()
             
-            # --- NOVO CÓDIGO: Salva o histórico ---
+            # --- Salva o histórico ---
             with lock_historico:
                 historico_temperaturas.append(leitura.temperatura)
                 # Mantém apenas as últimas 100 leituras para não estourar a memória
@@ -110,7 +110,7 @@ def receber_telemetria_udp():
             print(f"[Erro Telemetria] Falha ao receber pacote UDP: {e}")
 
 # ==========================================
-# FUNÇÃO AUXILIAR: LIMPEZA DINÂMICA DE FONTES (HEARTBEAT)
+# HEARTBEAT
 # ==========================================
 def obter_lista_limpa():
     """
@@ -137,11 +137,11 @@ def obter_lista_limpa():
     return dispositivos_vivos
 
 # ==========================================
-# THREAD PRINCIPAL: SERVIDOR TCP (INTERACTION COM CLIENTE)
+# THREAD PRINCIPAL: SERVIDOR TCP
 # ==========================================
 def executar_gateway():
     print("=" * 50)
-    print("🌾 INICIALIZANDO GATEWAY CENTRAL - SMART HORTA 🌾")
+    print("INICIALIZANDO GATEWAY")
     print("=" * 50)
 
     # Inicializa as threads auxiliares em background
