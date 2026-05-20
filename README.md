@@ -7,6 +7,9 @@ Equipe:<br>
  - ISRAEL DA SILVA FERNANDES - 538891 <br>
  - MATEUS DE JESUS VENANCIO DE SOUZA - 535979 <br>
  - WANDESON PAULINO BATISTA - 475663 <br> 
+
+<br> 
+
 # 📖 Apresentação do Projeto
 
 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Este projeto implementa um sistema distribuído 
