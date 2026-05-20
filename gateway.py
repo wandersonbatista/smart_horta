@@ -41,7 +41,7 @@ def gerenciar_descoberta():
         agora = time.time()
         
         # Dispara o gatilho em multicast a cada 10 segundos
-        if agora - ultimo_envio > 10:
+        if agora - ultimo_envio > 4:
             try:
                 sock.sendto(b"DISCOVER_HORTA", (GRUPO_MULTICAST, PORTA_MULTICAST))
                 ultimo_envio = agora
@@ -124,7 +124,7 @@ def obter_lista_limpa():
     with lock_fontes:
         for chave, dados in fontes_ativas.items():
             # Se passou de 20 segundos sem sinal de vida, consideramos desconectado
-            if agora - dados["ultimo_visto"] > 20.0:
+            if agora - dados["ultimo_visto"] > 10.0:
                 chaves_mortas.append(chave)
             else:
                 dispositivos_vivos.append(dados["info"])

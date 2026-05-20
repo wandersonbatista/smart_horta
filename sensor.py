@@ -57,7 +57,7 @@ def enviar_telemetria():
             sock.sendto(leitura.SerializeToString(), (gateway_ip, PORTA_DADOS_GATEWAY))
             print(f"[Enviado] Temp: {leitura.temperatura}°C | Umid: {leitura.umidade}%")
             
-        time.sleep(5)
+        time.sleep(2)
 
 if __name__ == "__main__":
     t_multicast = threading.Thread(target=escutar_multicast, daemon=True)

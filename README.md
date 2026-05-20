@@ -1,3 +1,5 @@
+<p align="justify">
+
 # smart_horta
 Traballho da disciplina de Sistemas Distribuídos
 
@@ -77,3 +79,5 @@ python3 -m venv venv
         protoc -I=. --python_out=. horta.proto
 
     Isso gerará o arquivo horta_pb2.py, responsável pela serialização dos dados.
+
+</p>
